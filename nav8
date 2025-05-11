@@ -1,12 +1,10 @@
--- Loading the new UI Library
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/CatEnddroid/Kitty-Cats-Doors-Beta/refs/heads/main/hub.lua"))()
-
--- Create a new window
-local Window = Library:CreateWindow("Purge hub", "Purge OT", "สร้างโดย Lxwnu")
+-- Load Kavo UI Library
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Purge hub", "DarkTheme")
 
 -- Create Main Tab
-local MainTab = Window:CreateTab("หน้าหลัก")
-local MainSection = MainTab:CreateSection("เมนูหลัก")
+local MainTab = Window:NewTab("หน้าหลัก")
+local MainSection = MainTab:NewSection("เมนูหลัก")
 
 -- Aimbot variables
 local AimbotEnabled = false
@@ -62,24 +60,12 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
--- Add to UI using the new UI format
-MainTab:CreateToggle({
-    Name = "เปิด/ปิด Aimbot",
-    Default = false,
-    Callback = function(Value)
-        AimbotEnabled = Value
-    end
-})
+-- Add to UI with Kavo UI format
+MainSection:NewToggle("เปิด/ปิด Aimbot", "เปิดใช้งาน Aimbot", function(state)
+    AimbotEnabled = state
+end)
 
-MainTab:CreateSlider({
-    Name = "ปรับขนาด FOV",
-    Min = 50,
-    Max = 300,
-    Default = AimbotFOV,
-    Increment = 10,
-    ValueName = "px",
-    Callback = function(Value)
-        AimbotFOV = Value
-        FOVCircle.Radius = AimbotFOV
-    end
-})
+MainSection:NewSlider("ปรับขนาด FOV", "ปรับขนาดพื้นที่ Aimbot", 300, 50, function(value)
+    AimbotFOV = value
+    FOVCircle.Radius = AimbotFOV
+end)
