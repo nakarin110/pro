@@ -1,27 +1,11 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+-- Loading the new UI Library
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/CatEnddroid/Kitty-Cats-Doors-Beta/refs/heads/main/hub.lua"))()
 
-local Window = Rayfield:CreateWindow({
-   Name = "Purge hub",
-   LoadingTitle = "Purge OT",
-   LoadingSubtitle = "สร้างโดย Lxwnu",
-   ConfigurationSaving = {
-      Enabled = false,
-      FolderName = nil,
-      FileName = "W"
-   },
-   KeySystem = false,
-   KeySettings = {
-      Title = "Untitled",
-      Subtitle = "Purge hub keys",
-      Note = "No method of obtaining the key is provided",
-      FileName = "hub",
-      SaveKey = true,
-      GrabKeyFromSite = false,
-      Key = {""}
-   }
-})
+-- Create a new window
+local Window = Library:CreateWindow("Purge hub", "Purge OT", "สร้างโดย Lxwnu")
 
-local MainTab = Window:CreateTab("หน้าหลัก", nil)
+-- Create Main Tab
+local MainTab = Window:CreateTab("หน้าหลัก")
 local MainSection = MainTab:CreateSection("เมนูหลัก")
 
 -- Aimbot variables
@@ -78,23 +62,24 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
--- Add to UI
+-- Add to UI using the new UI format
 MainTab:CreateToggle({
     Name = "เปิด/ปิด Aimbot",
-    CurrentValue = false,
+    Default = false,
     Callback = function(Value)
         AimbotEnabled = Value
-    end,
+    end
 })
 
 MainTab:CreateSlider({
     Name = "ปรับขนาด FOV",
-    Range = {50, 300},
+    Min = 50,
+    Max = 300,
+    Default = AimbotFOV,
     Increment = 10,
-    Suffix = "px",
-    CurrentValue = AimbotFOV,
+    ValueName = "px",
     Callback = function(Value)
         AimbotFOV = Value
         FOVCircle.Radius = AimbotFOV
-    end,
+    end
 })
